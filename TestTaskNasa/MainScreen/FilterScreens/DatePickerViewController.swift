@@ -1,18 +1,33 @@
 import UIKit
 import SnapKit
 
-protocol DatePickerViewControllerDelegate {
+protocol DatePickerViewControllerDelegate: AnyObject {
     func dateDidSelected(_ date: Date)
 }
 
 final class DatePickerViewController: UIViewController {
     //MARK: Constants
     private let container = UIView()
+    private let datePicker: UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.datePickerMode = .date
+        if #available(iOS 13.4, *) {
+            dp.preferredDatePickerStyle = .wheels
+        }
+        return dp
+    }()
+    
+    
+   
+    //MARK: Variables
     private lazy var backButton = createButton(icon: #imageLiteral(resourceName: "Close"), selector: #selector(backButtonTapped))
     private lazy var applyButton = createButton(icon: #imageLiteral(resourceName: "Tick.png"), selector: #selector(applyButtonTapped))
     private lazy var dateTitle = createTitle(text: "Date")
     private lazy var hStack = createHStack(axis: .horizontal)
-    //MARK: Variables
+    
+    weak var delegate: DatePickerViewControllerDelegate?
+    
+    //MARK: Lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         
@@ -23,7 +38,7 @@ final class DatePickerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = LayerColors.layerOne.OWColor.withAlphaComponent(0.4)
@@ -36,7 +51,8 @@ final class DatePickerViewController: UIViewController {
         self.dismiss(animated: false)
     }
     @objc private func applyButtonTapped() {
-        
+        delegate?.dateDidSelected(datePicker.date)
+        self.dismiss(animated: false)
     }
 }
 
@@ -56,6 +72,7 @@ private extension DatePickerViewController {
     
     func setupUI() {
         container.addSubview(hStack)
+        container.addSubview(datePicker)
         hStack.addArrangedSubview(backButton)
         hStack.addArrangedSubview(dateTitle)
         hStack.addArrangedSubview(applyButton)
@@ -65,6 +82,13 @@ private extension DatePickerViewController {
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
            
+        }
+        
+        datePicker.snp.makeConstraints { make in
+            make.top.equalTo(hStack.snp.bottom).offset(24)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
     }
 }

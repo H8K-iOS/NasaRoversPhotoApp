@@ -4,11 +4,13 @@ import UIKit
 enum Endpoint {
     case fetchForRoverName(roverName: String)
     case fetchForCameraType(cameraType: String)
-    case fetchForDate(date: Date)
     case fetchForRoverAndCamera(roverName: String, cameraType: String)
-    case fetchForAllFilters(roverName: String, cameraType: String, date: Date)
-    case fetchAllRovers
     
+    case fetchForDate(date: String)
+    case fetchForRoverAndDate(roverName: String, date: String)
+    case fetchForCameraAndDate(cameraType: String, date: String)
+    
+    case fetchForAllFilters(roverName: String, cameraType: String, date: String)
     
     var request: URLRequest? {
         guard let url = self.url else { return nil}
@@ -40,15 +42,18 @@ enum Endpoint {
             return "/mars-photos/api/v1/rovers/\(roverName)/latest_photos"
             
         case .fetchForDate:
-            return "/mars-photos/api/v1/rovers/photos"
+            return "/mars-photos/api/v1/rovers/curiosity/photos"
             
         case .fetchForAllFilters(roverName: let roverName, cameraType: _, date: _):
             return "/mars-photos/api/v1/rovers/\(roverName)/photos"
+            
         
-        case .fetchAllRovers:
-            return "/mars-photos/api/v1/rovers"
+        case .fetchForRoverAndDate(roverName: let roverName, date: let date):
+            return "/mars-photos/api/v1/rovers/\(roverName)/photos"
+            
+        case .fetchForCameraAndDate(cameraType: let cameraType, date: let date):
+            return "/mars-photos/api/v1/rovers/curiosity/photos"
         }
-        
     }
     
     var httpMethods: String {
@@ -66,27 +71,29 @@ enum Endpoint {
             items.append(URLQueryItem(name: "camera", value: cameraType))
             
         case .fetchForDate(date: let date):
-            let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "yyyy-MM-dd"
-            let dateStr = dateFormater.string(from: date)
-            items.append(URLQueryItem(name: "date", value: dateStr))
+            items.append(URLQueryItem(name: "earth_date", value: date))
             
         case .fetchForRoverAndCamera(roverName: _, cameraType: let cameraType):
             items.append(URLQueryItem(name: "camera", value: cameraType))
             
         case .fetchForAllFilters(roverName: _, cameraType: let cameraType, date: let date):
-            let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "yyyy-MM-dd"
-            let dateStr = dateFormater.string(from: date)
             items.append(contentsOf: [URLQueryItem(name: "camera", value: cameraType),
-                                      URLQueryItem(name: "earth_date", value: dateStr)
+                                      URLQueryItem(name: "earth_date", value: date)
                                      ])
             
-        case .fetchAllRovers:
-            break
+            
+            return items
+        case .fetchForRoverAndDate(roverName: _, date: let date):
+            items.append(URLQueryItem(name: "earth_date", value: date))
+            
+            
+            return items
+        case .fetchForCameraAndDate(cameraType: let cameraType, date: let date):
+            items.append(contentsOf: [URLQueryItem(name: "camera", value: cameraType),
+                                      URLQueryItem(name: "earth_date", value: date)
+                                     ])
         }
         return items
     }
 }
-
 

@@ -5,7 +5,7 @@ extension MainViewController  {
     func createLabel(font: CGFloat, text: String) -> UILabel {
         let lb = UILabel()
         lb.text = text
-        lb.font = .systemFont(ofSize: font, weight: .semibold)
+        lb.font = .systemFont(ofSize: font, weight: .bold)
         lb.textColor = .black
         return lb
     }
@@ -29,6 +29,7 @@ extension MainViewController  {
         btn.setImage(icon, for: .normal)
         btn.setTitle("All", for: .normal)
         btn.setTitleColor(.black, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         btn.backgroundColor = BackgroundColor.backgroundOne.OWcolor
         btn.layer.cornerRadius = 12
         btn.tintColor = .black

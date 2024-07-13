@@ -5,7 +5,7 @@ import SDWebImage
 final class CardCell: UITableViewCell {
     // MARK: - Constants
     public static let identifier = "CardCell"
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
     private let cardContainer = UIView()
     private let roverLabel = UILabel()
     private let cameraTypeLabel = UILabel()
@@ -19,6 +19,12 @@ final class CardCell: UITableViewCell {
         vs.spacing = 0
         return vs
     }()
+    private let dateFormater: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "MMMM d, yyyy"
+        return df
+    }()
+
     
     // MARK: - Variables
     private(set) var rovers: LatestPhoto!
@@ -43,23 +49,14 @@ final class CardCell: UITableViewCell {
     }
 
     // MARK: - Methods
-    public func config(with rovers: LatestPhoto) {
-        self.rovers = rovers
+    public func config(with rovers: RoverPhotoProtocol) {
+        roverLabel.attributedText = String.labelColor(title: "Rover: ", value: rovers.roverName)
+        cameraTypeLabel.attributedText = String.labelColor(title: "Camera: ", value: rovers.cameraFullName)
         
-        roverLabel.attributedText = String.labelColor(title: "Rover: ", value: rovers.rover.name)
-        cameraTypeLabel.attributedText = String.labelColor(title: "Camera: ", value: rovers.camera.fullName)
+        let formatedDate = dateFormater.date(from: rovers.earthDate)
+        let date = dateFormater.string(from: formatedDate ?? Date())
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = dateFormatter.date(from: rovers.earthDate) {
-            dateFormatter.dateFormat = "MMMM d, yyyy"
-            let formattedDate = dateFormatter.string(from: date)
-            dateLabel.attributedText = String.labelColor(title: "Date: ", value: formattedDate)
-        } else {
-            dateLabel.attributedText = String.labelColor(title: "Date: ", value: rovers.earthDate)
-        }
-        
+        dateLabel.attributedText = String.labelColor(title: "Date: ", value: date)
         guard let imageUrl = URL(string: rovers.imgSrc.replacingOccurrences(of: "http://", with: "https://")) else {
             print("Invalid URL string: \(rovers.imgSrc)")
             return
@@ -67,17 +64,11 @@ final class CardCell: UITableViewCell {
         
         marsImageView.image = nil
         updateActivityIndicatorVisibility()
-
-        self.marsImageView.sd_setImage(with: imageUrl, completed: { [weak self] (image, error, cacheType, url) in
-            if let error {
-                print("Error loading image: \(error)")
-                self?.image = nil
-            } else if let image {
-                self?.image = image
-            } else {
-                self?.image = nil
-            }
-        })
+        
+        self.marsImageView.sd_setImage(with: imageUrl) {[weak self] image, _, _, _ in
+            self?.image = image
+        }
+        
     }
     
     private func setContainer() {

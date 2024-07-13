@@ -8,4 +8,5 @@ target 'TestTaskNasa' do
   # Pods for TestTaskNasa
   pod 'SnapKit'
   pod 'SDWebImage'
+  pod 'lottie-ios'
 end

@@ -23,7 +23,7 @@ final class MainViewController: UIViewController {
     
     //MARK: - Variables
     private lazy var marsCameraTitle = createLabel(font: 34, text: "MARS.CAMERA")
-    private lazy var dateLable = createLabel(font: 17, text: "June 6, 2019")
+    private lazy var dateLable = createLabel(font: 17, text: "")
     private lazy var calendarButton = createCalendarButton(selector: #selector(calendarButtonTapped))
     private lazy var filterRoverButton = createFilterButton(icon: #imageLiteral(resourceName: "Rover.png"),
                                                             selector: #selector(filterRoverButtonTapped))
@@ -38,6 +38,7 @@ final class MainViewController: UIViewController {
     
     private var selectedRover: String?
     private var selectedCamera: String?
+    private var selectedDate: Date?
     
     //MARK: - Lifecycle
     init(viewModel: MainViewModel = MainViewModel()) {
@@ -67,13 +68,38 @@ final class MainViewController: UIViewController {
         self.viewModel.onUpdate = {[weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.updateDateLabel()
             }
         }
     }
     
+    func updateDateLabel() {
+        if viewModel.currentDate == nil {
+            guard let rovers = viewModel.rovers.first else { return }
+            self.dateLable.text = formatDateString(rovers.earthDate)
+        } else {
+            guard let rovers = viewModel.roversPhoto.first else { return }
+            self.dateLable.text = formatDateString(rovers.earthDate)
+        }
+            
+    }
+    
+    func formatDateString(_ dateString: String) -> String {
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd"
+           
+           if let date = dateFormatter.date(from: dateString) {
+               dateFormatter.dateFormat = "MMMM d, yyyy"
+               return dateFormatter.string(from: date)
+           }
+           return dateString
+       }
+    
     //MARK: Buttons
     @objc private func calendarButtonTapped() {
-        self.present(DatePickerViewController(), animated: false)
+        let vc = DatePickerViewController()
+        vc.delegate = self
+        self.present(vc, animated: false)
     }
     
     @objc private func filterRoverButtonTapped() {
@@ -142,7 +168,7 @@ private extension MainViewController {
         hStack.addArrangedSubview(filterCameraButton)
         hStack.addArrangedSubview(UIView())
         hStack.addArrangedSubview(saveFilterButton)
-    
+
         self.view.addSubview(tableView)
         self.view.addSubview(historyButton)
     }
@@ -207,13 +233,22 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.identifier, for: indexPath) as? CardCell else {
             return UITableViewCell()
         }
+        if viewModel.currentDate == nil {
+            cell.config(with: viewModel.rovers[indexPath.row])
+        } else {
+            cell.config(with: viewModel.roversPhoto[indexPath.row])
+        }
+        
         cell.selectionStyle = .none
         cell.selectedBackgroundView = .none
-        cell.config(with: viewModel.rovers[indexPath.row])
+        
+        
+        
         return cell
     }
 }
 
+//MARK: - Filters Delegates
 extension MainViewController: RoverBottomSheetDelegate {
     func didSelectRover(_ rover: String) {
         self.filterRoverButton.setTitle(rover, for: .normal)
@@ -225,22 +260,71 @@ extension MainViewController: RoverBottomSheetDelegate {
 extension MainViewController: CameraBottomSheetDelegate {
     func didSelect(_ camera: String) {
         self.filterCameraButton.setTitle(camera, for: .normal)
-        
         self.selectedCamera = camera
         fetch()
     }
 }
 
+extension MainViewController: DatePickerViewControllerDelegate {
+    func dateDidSelected(_ date: Date) {
+        self.selectedDate = date
+        
+        let dateFormaterForLable = DateFormatter()
+        dateFormaterForLable.dateFormat = "MMMM d, yyyy"
+        let dateFormaterForReq = DateFormatter()
+        dateFormaterForReq.dateFormat = "yyyy-MM-dd"
+        
+        let formatedDate = dateFormaterForLable.string(from: date)
+        let formatedDateForReq = dateFormaterForReq.string(from: date)
+        self.dateLable.text = formatedDate
+        
+        
+        self.viewModel.fetchForDate(date: formatedDateForReq)
+    }
+    
+    
+}
+
 private extension MainViewController {
     func fetch() {
-        if let rover = selectedRover, !rover.isAll, let camera = selectedCamera, !camera.isAll {
-                viewModel.fetchRoverForNameAndCamera(roverName: rover, cameraType: camera)
-        } else if let rover = selectedRover, !rover.isAll {
-                viewModel.fetchRoversForName(roverName: rover)
-        } else if let camera = selectedCamera, !camera.isAll {
-                viewModel.fetchForCamera(cameraName: camera)
-            } else {
-                viewModel.fetchRoversForName(roverName: "Curiosity")
-            }
+           let roverSelected = selectedRover != nil && !selectedRover!.isAll
+           let cameraSelected = selectedCamera != nil && !selectedCamera!.isAll
+           let dateSelected = selectedDate != nil
+           
+           if roverSelected && cameraSelected && dateSelected {
+               let rover = selectedRover!
+               let camera = selectedCamera!
+               let date = formattedDateForReq(from: selectedDate!)
+               viewModel.fetchRoverForAllfilters(roverName: rover, cameraType: camera, date: date)
+           } else if roverSelected && cameraSelected {
+               let rover = selectedRover!
+               let camera = selectedCamera!
+               viewModel.fetchRoverForNameAndCamera(roverName: rover, cameraType: camera)
+           } else if roverSelected && dateSelected {
+               let rover = selectedRover!
+               let date = formattedDateForReq(from: selectedDate!)
+               viewModel.fetchForRoverAndDate(roverName: rover, date: date)
+           } else if cameraSelected && dateSelected {
+               let camera = selectedCamera!
+               let date = formattedDateForReq(from: selectedDate!)
+               viewModel.fetchForCameraAndDate(cameraType: camera, date: date)
+           } else if roverSelected {
+               let rover = selectedRover!
+               viewModel.fetchRoversForName(roverName: rover)
+           } else if cameraSelected {
+               let camera = selectedCamera!
+               viewModel.fetchForCamera(cameraName: camera)
+           } else if dateSelected {
+               let date = formattedDateForReq(from: selectedDate!)
+               viewModel.fetchForDate(date: date)
+           } else {
+               viewModel.fetchRoversForName(roverName: "Curiosity")
+           }
+       }
+    
+    func formattedDateForReq(from date: Date) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
         }
 }
