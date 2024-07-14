@@ -68,16 +68,18 @@ final class MainViewModel {
     
     //MARK: - With Date
     func fetchForDate(date: String) {
-            APIService.shared.fetchForDate(date: date) { [weak self] result in
-                switch result {
-                case .success(let rovers):
-                    self?.roversPhoto = rovers
-                    self?.currentDate = date
-                case .failure(let error):
-                    print(error)
-                }
+        APIService.shared.fetchForDate(date: date) { [weak self] result in
+            switch result {
+            case .success(let rovers):
+                self?.roversPhoto = rovers
+                self?.currentDate = date
+                print("Fetched \(rovers.count) rovers for date \(date)") // Отладочный вывод
+                self?.onUpdate?()
+            case .failure(let error):
+                print(error)
             }
         }
+    }
         
         func fetchForCameraAndDate(cameraType: String, date: String) {
             APIService.shared.fetchForCameraAndDate(cameraType: cameraType, date: date) { [weak self] result in

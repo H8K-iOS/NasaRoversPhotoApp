@@ -15,6 +15,7 @@
 		8C2EC51F2C42E743005784C8 /* RoverPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC51E2C42E743005784C8 /* RoverPhoto.swift */; };
 		8C2EC5242C42F271005784C8 /* RoversPhotoPrtcl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC5232C42F271005784C8 /* RoversPhotoPrtcl.swift */; };
 		8C2EC52A2C430FDD005784C8 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC5292C430FDD005784C8 /* loader.json */; };
+		8C2EC52D2C43166E005784C8 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC52C2C43166E005784C8 /* AlertManager.swift */; };
 		8CC4AD3A2C402A9D00538CEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD392C402A9D00538CEC /* AppDelegate.swift */; };
 		8CC4AD3C2C402A9D00538CEC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD3B2C402A9D00538CEC /* SceneDelegate.swift */; };
 		8CC4AD3E2C402A9D00538CEC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD3D2C402A9D00538CEC /* MainViewController.swift */; };
@@ -45,6 +46,7 @@
 		8C2EC51E2C42E743005784C8 /* RoverPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverPhoto.swift; sourceTree = "<group>"; };
 		8C2EC5232C42F271005784C8 /* RoversPhotoPrtcl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoversPhotoPrtcl.swift; sourceTree = "<group>"; };
 		8C2EC5292C430FDD005784C8 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../loader.json; sourceTree = "<group>"; };
+		8C2EC52C2C43166E005784C8 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		8CC4AD362C402A9D00538CEC /* TestTaskNasa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskNasa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC4AD392C402A9D00538CEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CC4AD3B2C402A9D00538CEC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 				8C2EC51C2C42B349005784C8 /* DatePickerViewController.swift */,
 			);
 			path = FilterScreens;
+			sourceTree = "<group>";
+		};
+		8C2EC52B2C4315B5005784C8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8C2EC52C2C43166E005784C8 /* AlertManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		8CC4AD2D2C402A9D00538CEC = {
@@ -172,6 +182,7 @@
 		8CC4AD512C4030BC00538CEC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8C2EC52B2C4315B5005784C8 /* Managers */,
 				8CC4AD5D2C403EFA00538CEC /* UIViewController+Extensions.swift */,
 				8CC4AD632C412FFD00538CEC /* Constants.swift */,
 				8CC4AD522C4030C800538CEC /* UIColor+Extensions.swift */,
@@ -336,6 +347,7 @@
 				8CC4AD5A2C40360000538CEC /* RoverLatestPhoto.swift in Sources */,
 				8CC4AD682C41A53400538CEC /* RoverBottomScreen.swift in Sources */,
 				8C2EC5152C4285DA005784C8 /* DetailViewController.swift in Sources */,
+				8C2EC52D2C43166E005784C8 /* AlertManager.swift in Sources */,
 				8CC4AD532C4030C800538CEC /* UIColor+Extensions.swift in Sources */,
 				8CC4AD5E2C403EFA00538CEC /* UIViewController+Extensions.swift in Sources */,
 				8CC4AD622C40994700538CEC /* APIService.swift in Sources */,

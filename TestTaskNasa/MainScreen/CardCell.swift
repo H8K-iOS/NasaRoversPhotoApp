@@ -19,15 +19,19 @@ final class CardCell: UITableViewCell {
         vs.spacing = 0
         return vs
     }()
-    private let dateFormater: DateFormatter = {
+    private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "MMMM d, yyyy"
         return df
     }()
-
+    private let inputDateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        return df
+    }()
     
     // MARK: - Variables
-    private(set) var rovers: LatestPhoto!
+    private(set) var rovers: RoverPhotoProtocol!
     private var image: UIImage? {
         didSet {
             marsImageView.image = image
@@ -47,16 +51,13 @@ final class CardCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Methods
     public func config(with rovers: RoverPhotoProtocol) {
         roverLabel.attributedText = String.labelColor(title: "Rover: ", value: rovers.roverName)
         cameraTypeLabel.attributedText = String.labelColor(title: "Camera: ", value: rovers.cameraFullName)
         
-        let formatedDate = dateFormater.date(from: rovers.earthDate)
-        let date = dateFormater.string(from: formatedDate ?? Date())
-        
-        dateLabel.attributedText = String.labelColor(title: "Date: ", value: date)
+        setData(date: rovers)
         guard let imageUrl = URL(string: rovers.imgSrc.replacingOccurrences(of: "http://", with: "https://")) else {
             print("Invalid URL string: \(rovers.imgSrc)")
             return
@@ -65,17 +66,29 @@ final class CardCell: UITableViewCell {
         marsImageView.image = nil
         updateActivityIndicatorVisibility()
         
-        self.marsImageView.sd_setImage(with: imageUrl) {[weak self] image, _, _, _ in
+        self.marsImageView.sd_setImage(with: imageUrl) { [weak self] image, _, _, _ in
+            print("Image loaded successfully")
             self?.image = image
         }
-        
+    }
+}
+
+//MARK: - Extensions
+private extension CardCell {
+    func setData(date: RoverPhotoProtocol) {
+        if let date = inputDateFormatter.date(from: date.earthDate) {
+            let formattedDate = dateFormatter.string(from: date)
+            dateLabel.attributedText = String.labelColor(title: "Date: ", value: formattedDate)
+        } else {
+            dateLabel.attributedText = String.labelColor(title: "Date: ", value: rovers.earthDate)
+        }
     }
     
-    private func setContainer() {
+    func setContainer() {
         self.backgroundColor = .clear
         
         self.contentView.addSubview(cardContainer)
-       
+        
         cardContainer.backgroundColor = .white
         cardContainer.layer.cornerRadius = 30
         cardContainer.layer.shadowColor = UIColor.black.cgColor
@@ -90,8 +103,8 @@ final class CardCell: UITableViewCell {
             make.bottom.equalTo(contentView).inset(10)
         }
     }
-
-    private func setupIndicator() {
+    
+    func setupIndicator() {
         self.cardContainer.addSubview(activityIndicator)
         activityIndicator.isHidden = true
         
@@ -100,19 +113,19 @@ final class CardCell: UITableViewCell {
         }
     }
     
-    private func setupUI() {
+    func setupUI() {
         self.cardContainer.addSubview(vStack)
         vStack.addArrangedSubview(roverLabel)
         vStack.addArrangedSubview(cameraTypeLabel)
         vStack.addArrangedSubview(dateLabel)
         
         self.cardContainer.addSubview(marsImageView)
-    
+        
         roverLabel.font = .systemFont(ofSize: 16)
         
         cameraTypeLabel.font = .systemFont(ofSize: 16)
         cameraTypeLabel.numberOfLines = 2
-
+        
         dateLabel.font = .systemFont(ofSize: 16)
         
         marsImageView.backgroundColor = .gray.withAlphaComponent(0.1)
@@ -120,7 +133,7 @@ final class CardCell: UITableViewCell {
         marsImageView.clipsToBounds = true
     }
     
-    private func setupLayouts() {
+    func setupLayouts() {
         marsImageView.snp.makeConstraints { make in
             make.top.equalTo(cardContainer).offset(10)
             make.bottom.right.equalTo(cardContainer).inset(10)
@@ -134,8 +147,8 @@ final class CardCell: UITableViewCell {
             make.bottom.equalTo(cardContainer).inset(27)
         }
     }
-
-    private func updateActivityIndicatorVisibility() {
+    
+    func updateActivityIndicatorVisibility() {
         if marsImageView.image == nil {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()

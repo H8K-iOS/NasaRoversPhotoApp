@@ -2,9 +2,9 @@ import Foundation
 
 final class DetailViewModel {
     
-    let latestPhoto: LatestPhoto
+    let latestPhoto: RoverPhotoProtocol
     
-    init(_ latestPhoto: LatestPhoto) {
+    init(_ latestPhoto: RoverPhotoProtocol) {
         self.latestPhoto = latestPhoto
     }
     

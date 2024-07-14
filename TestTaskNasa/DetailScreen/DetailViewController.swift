@@ -72,7 +72,7 @@ private extension DetailViewController {
     }
     
     private func display() {
-        guard let imageUrl = URL(string: self.viewModel.latestPhoto.imgSrc) else {
+        guard let imageUrl = URL(string: self.viewModel.latestPhoto.imgSrc.replacingOccurrences(of: "http://", with: "https://")) else {
             return
         }
         self.marsImageView.sd_setImage(with: imageUrl)

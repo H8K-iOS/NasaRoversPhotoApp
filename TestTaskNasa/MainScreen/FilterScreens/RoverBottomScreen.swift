@@ -6,7 +6,7 @@ protocol RoverBottomSheetDelegate: AnyObject {
 
 final class RoverBottomSheetViewController: UIViewController {
     //MARK: Constants
-    private let rovers = ["All", "Spirit", "Opportunity", "Curiosity", "Perseverance"]
+    private let rovers = ["Curiosity", "Spirit", "Opportunity", "Perseverance"]
     private let picker = UIPickerView()
     
     //MARK: Variables
