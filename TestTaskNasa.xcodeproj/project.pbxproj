@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1584652C43EE5E00331C1B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1584642C43EE5E00331C1B /* HistoryViewController.swift */; };
+		8C1584672C43EE7B00331C1B /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1584662C43EE7B00331C1B /* HistoryCell.swift */; };
+		8C1584692C43EE8B00331C1B /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1584682C43EE8B00331C1B /* HistoryViewModel.swift */; };
 		8C2EC5132C428137005784C8 /* Other+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC5122C428137005784C8 /* Other+Extensions.swift */; };
 		8C2EC5152C4285DA005784C8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC5142C4285DA005784C8 /* DetailViewController.swift */; };
 		8C2EC5172C4285E6005784C8 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC5162C4285E6005784C8 /* DetailViewModel.swift */; };
@@ -32,12 +35,17 @@
 		8CC4AD662C4134EC00538CEC /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD652C4134EC00538CEC /* HTTP.swift */; };
 		8CC4AD682C41A53400538CEC /* RoverBottomScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD672C41A53400538CEC /* RoverBottomScreen.swift */; };
 		8CC4AD6A2C41A54500538CEC /* CameraBottomScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD692C41A54500538CEC /* CameraBottomScreen.swift */; };
+		8CF8448F2C440EF800A59A11 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF8448E2C440EF800A59A11 /* DBManager.swift */; };
+		8CF844912C44139800A59A11 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF844902C44139800A59A11 /* FilterModel.swift */; };
 		CE2295C140AB9B6A9411E4F2 /* Pods_TestTaskNasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2798B31DE298795F66589E /* Pods_TestTaskNasa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		149B708676A0E4BEAC3FFDDE /* Pods-TestTaskNasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTaskNasa.release.xcconfig"; path = "Target Support Files/Pods-TestTaskNasa/Pods-TestTaskNasa.release.xcconfig"; sourceTree = "<group>"; };
 		509152D32A419B0790BEA103 /* Pods-TestTaskNasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestTaskNasa.debug.xcconfig"; path = "Target Support Files/Pods-TestTaskNasa/Pods-TestTaskNasa.debug.xcconfig"; sourceTree = "<group>"; };
+		8C1584642C43EE5E00331C1B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		8C1584662C43EE7B00331C1B /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		8C1584682C43EE8B00331C1B /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
 		8C2EC5122C428137005784C8 /* Other+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Other+Extensions.swift"; sourceTree = "<group>"; };
 		8C2EC5142C4285DA005784C8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8C2EC5162C4285E6005784C8 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
@@ -65,6 +73,8 @@
 		8CC4AD652C4134EC00538CEC /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		8CC4AD672C41A53400538CEC /* RoverBottomScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverBottomScreen.swift; sourceTree = "<group>"; };
 		8CC4AD692C41A54500538CEC /* CameraBottomScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBottomScreen.swift; sourceTree = "<group>"; };
+		8CF8448E2C440EF800A59A11 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		8CF844902C44139800A59A11 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		CB2798B31DE298795F66589E /* Pods_TestTaskNasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestTaskNasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,6 +99,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8C1584632C43EE3100331C1B /* HistoryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8C1584642C43EE5E00331C1B /* HistoryViewController.swift */,
+				8C1584662C43EE7B00331C1B /* HistoryCell.swift */,
+				8C1584682C43EE8B00331C1B /* HistoryViewModel.swift */,
+			);
+			path = HistoryScreen;
+			sourceTree = "<group>";
+		};
 		8C2EC5112C41CE94005784C8 /* FilterScreens */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				8C2EC52C2C43166E005784C8 /* AlertManager.swift */,
+				8CF8448E2C440EF800A59A11 /* DBManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -133,6 +154,7 @@
 				8CC4AD512C4030BC00538CEC /* Helpers */,
 				8CC4AD4F2C402B1500538CEC /* MainScreen */,
 				8CC4AD502C402B2D00538CEC /* DetailScreen */,
+				8C1584632C43EE3100331C1B /* HistoryScreen */,
 				8CC4AD4D2C402B0800538CEC /* Application */,
 				8CC4AD4E2C402B0E00538CEC /* Assets */,
 			);
@@ -198,6 +220,7 @@
 				8CC4AD592C40360000538CEC /* RoverLatestPhoto.swift */,
 				8C2EC51E2C42E743005784C8 /* RoverPhoto.swift */,
 				8C2EC5232C42F271005784C8 /* RoversPhotoPrtcl.swift */,
+				8CF844902C44139800A59A11 /* FilterModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,15 +359,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C2EC5172C4285E6005784C8 /* DetailViewModel.swift in Sources */,
+				8C1584652C43EE5E00331C1B /* HistoryViewController.swift in Sources */,
 				8CC4AD552C40350C00538CEC /* CardCell.swift in Sources */,
 				8CC4AD6A2C41A54500538CEC /* CameraBottomScreen.swift in Sources */,
 				8C2EC5242C42F271005784C8 /* RoversPhotoPrtcl.swift in Sources */,
 				8C2EC51F2C42E743005784C8 /* RoverPhoto.swift in Sources */,
+				8C1584672C43EE7B00331C1B /* HistoryCell.swift in Sources */,
 				8CC4AD642C412FFD00538CEC /* Constants.swift in Sources */,
 				8CC4AD602C4098D800538CEC /* Endpoint.swift in Sources */,
 				8C2EC51D2C42B349005784C8 /* DatePickerViewController.swift in Sources */,
+				8C1584692C43EE8B00331C1B /* HistoryViewModel.swift in Sources */,
 				8CC4AD3E2C402A9D00538CEC /* MainViewController.swift in Sources */,
+				8CF844912C44139800A59A11 /* FilterModel.swift in Sources */,
 				8CC4AD5A2C40360000538CEC /* RoverLatestPhoto.swift in Sources */,
+				8CF8448F2C440EF800A59A11 /* DBManager.swift in Sources */,
 				8CC4AD682C41A53400538CEC /* RoverBottomScreen.swift in Sources */,
 				8C2EC5152C4285DA005784C8 /* DetailViewController.swift in Sources */,
 				8C2EC52D2C43166E005784C8 /* AlertManager.swift in Sources */,

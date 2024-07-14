@@ -13,6 +13,8 @@ final class MainViewModel {
         }
     }
     
+    private let dbManager = DBManagerImpl()
+    
     var onUpdate: (() -> Void)?
     var currentDate: String?
     
@@ -23,6 +25,16 @@ final class MainViewModel {
     //MARK: - Methods
     func numbersOfRows() -> Int {
         return currentDate == nil ? rovers.count : roversPhoto.count
+    }
+    
+    func saveFilter(rover: String?, camera: String?, date: String?) {
+        let filter = FilterModel()
+        
+        filter.roverName = rover
+        filter.roverCamera = camera
+        filter.date = date
+        
+        dbManager.saveFilter(filter: filter)
     }
     
     //MARK: - Without Date

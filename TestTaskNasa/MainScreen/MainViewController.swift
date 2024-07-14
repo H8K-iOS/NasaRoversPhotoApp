@@ -8,7 +8,7 @@ final class MainViewController: UIViewController {
     
     private let tableView: UITableView = {
         let tv = UITableView()
-        tv.backgroundColor = .white
+        tv.backgroundColor = BackgroundColor.backgroundOne.OWcolor
         tv.separatorStyle = .none
         tv.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
         return tv
@@ -127,11 +127,19 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func saveFilterButtonTapped() {
-        print("saveFilterButtonTapped")
+        AlertManager.showSaveFilterAlert(on: self) { [weak self] in
+            
+            let formattedDate = self?.selectedDate != nil ? self?.formattedDateString(from: (self?.selectedDate)!) : nil
+            
+            self?.viewModel.saveFilter(rover: self?.selectedRover, camera: self?.selectedCamera, date: formattedDate)
+            
+        }
     }
     
     @objc private func historyButtonTapped() {
-        print("historyButtonTapped")
+        let vc = HistoryViewController()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -263,6 +271,33 @@ extension MainViewController: DatePickerViewControllerDelegate {
     }
 }
 
+extension MainViewController: HistoryViewControllerDelegate {
+    func applyFilter(rover: String?, camera: String?, date: String?) {
+        self.selectedRover = rover
+        self.selectedCamera = camera
+        self.selectedDate = date != nil ? convertToDate(dateString: date!) : nil
+        
+        if let rover {
+            self.filterRoverButton.setTitle(rover, for: .normal)
+        } else {
+            self.filterRoverButton.setTitle("All", for: .normal)
+        }
+        
+        if let camera {
+            self.filterCameraButton.setTitle(camera, for: .normal)
+        } else {
+            self.filterCameraButton.setTitle("All", for: .normal)
+        }
+        
+        if let date {
+            self.dateLable.text = formattedDateString(from: convertToDate(dateString: date)!)
+        }
+        showPreloader()
+        fetch()
+    }
+    
+    
+}
 //MARK: - Other Extensions
 private extension MainViewController {
     private func fetch() {
@@ -309,6 +344,12 @@ private extension MainViewController {
         return dateFormatter.string(from: date)
     }
     
+    private func convertToDate(dateString: String) -> Date? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.date(from: dateString)
+        }
+    
     private func setRovers() {
         self.viewModel.onUpdate = { [weak self] in
             DispatchQueue.main.async {
@@ -341,6 +382,12 @@ private extension MainViewController {
         return dateString
     }
     
+    private func formattedDateString(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
     // MARK: - Preloader Methods
     private func showPreloader() {
         self.view.addSubview(preloaderView)
@@ -361,5 +408,6 @@ private extension MainViewController {
             AlertManager.showNoSuchDataAlert(on: self)
         }
     }
+    
 }
 

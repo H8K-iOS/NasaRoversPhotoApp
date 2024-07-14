@@ -9,4 +9,5 @@ target 'TestTaskNasa' do
   pod 'SnapKit'
   pod 'SDWebImage'
   pod 'lottie-ios'
+  pod 'RealmSwift'
 end

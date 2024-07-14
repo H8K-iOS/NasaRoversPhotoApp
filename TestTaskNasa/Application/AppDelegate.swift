@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  TestTaskNasa
-//
-//  Created by Alexandr Alimov on 11/07/24.
-//
-
 import UIKit
 
 @main

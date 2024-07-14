@@ -1,7 +1,8 @@
 import UIKit
 import SnapKit
 
-extension MainViewController  {
+
+extension UIViewController {
     func createLabel(font: CGFloat, text: String) -> UILabel {
         let lb = UILabel()
         lb.text = text
@@ -10,6 +11,9 @@ extension MainViewController  {
         return lb
     }
     
+}
+
+extension MainViewController  {
     func createCalendarButton(selector: Selector) -> UIButton {
         let btn = CustomCalendarButton()
         btn.setImage(UIImage(#imageLiteral(resourceName: "Calendar.png")), for: .normal)
@@ -113,3 +117,16 @@ extension FilterViewControllerProtocol where Self: UIViewController {
     }
 }
 
+extension HistoryViewController {
+    func createBackBarButton(selector: Selector) -> UIButton {
+        let btn = UIButton()
+        btn.setImage(#imageLiteral(resourceName: "Left.png"), for: .normal)
+        btn.tintColor = .gray
+        btn.tintColor = .white
+        btn.addTarget(self, action: selector, for: .touchUpInside)
+        btn.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+        }
+        return btn
+    }
+}
