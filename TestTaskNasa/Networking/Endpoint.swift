@@ -48,10 +48,10 @@ enum Endpoint {
             return "/mars-photos/api/v1/rovers/\(roverName)/photos"
             
         
-        case .fetchForRoverAndDate(roverName: let roverName, date: let date):
+        case .fetchForRoverAndDate(roverName: let roverName, date: _):
             return "/mars-photos/api/v1/rovers/\(roverName)/photos"
             
-        case .fetchForCameraAndDate(cameraType: let cameraType, date: let date):
+        case .fetchForCameraAndDate(cameraType: _, date: _):
             return "/mars-photos/api/v1/rovers/curiosity/photos"
         }
     }

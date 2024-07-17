@@ -20,14 +20,6 @@ extension String {
     }
 }
 
-extension Date {
-    func toString(format: String = "MMMM d, yyyy") -> String{
-        let formater = DateFormatter()
-        formater.dateFormat = format
-        return formater.string(from: self)
-    }
-}
-
 
 
 

@@ -13,13 +13,7 @@ final class MainViewController: UIViewController {
         tv.register(CardCell.self, forCellReuseIdentifier: CardCell.identifier)
         return tv
     }()
-    
-    private let hStack: UIStackView = {
-        let vs = UIStackView()
-        vs.axis = .horizontal
-        vs.distribution = .equalSpacing
-        return vs
-    }()
+
     
     // MARK: - Variables
     private lazy var marsCameraTitle = createLabel(font: 34, weight: .bold, text: "MARS.CAMERA")
@@ -37,6 +31,9 @@ final class MainViewController: UIViewController {
                                                                selector: #selector(saveFilterButtonTapped))
     
     private lazy var historyButton = createHistoryButton(selector: #selector(historyButtonTapped))
+    
+    private lazy var titleVStack = createHStack(axis: .vertical)
+    private lazy var hStack = createHStack(axis: .horizontal)
     
     // Preloader View
     private var preloaderView: LottieAnimationView = {
@@ -142,9 +139,10 @@ final class MainViewController: UIViewController {
 // MARK: - Extensions
 private extension MainViewController {
     func setupUI() {
-        self.view.addSubview(marsCameraTitle)
-        self.view.addSubview(dateLable)
         self.view.addSubview(calendarButton)
+        self.view.addSubview(titleVStack)
+        titleVStack.addArrangedSubview(marsCameraTitle)
+        titleVStack.addArrangedSubview(dateLable)
         
         self.view.addSubview(hStack)
         hStack.addArrangedSubview(filterRoverButton)
@@ -157,34 +155,30 @@ private extension MainViewController {
     }
     
     func setupLayouts() {
-        marsCameraTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(view.frame.height * 0.07)
-            make.left.equalToSuperview().offset(view.frame.width * 0.05)
-        }
-        
-        dateLable.snp.makeConstraints { make in
-            make.top.equalTo(marsCameraTitle.snp.bottom).offset(2)
-            make.left.equalToSuperview().offset(view.frame.width * 0.05)
+        titleVStack.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(view.frame.height * 0.08)
+            make.left.equalToSuperview().offset(19)
+            make.height.equalTo(65)
         }
         
         calendarButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(view.frame.height * 0.1)
-            make.right.equalToSuperview().offset(-view.frame.width * 0.05)
+            make.centerY.equalTo(titleVStack.snp.centerY)
+            make.right.equalToSuperview().inset(17)
         }
         
         hStack.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(view.frame.width * 0.05)
-            make.right.equalToSuperview().inset(view.frame.width * 0.05)
-            make.top.equalTo(dateLable.snp.bottom).offset(view.frame.height * 0.03)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().inset(20)
+            make.top.equalTo(titleVStack.snp.bottom).offset(view.frame.height * 0.025)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(view.frame.height * 0.24)
+            make.top.equalTo(hStack.snp.bottom).offset(view.frame.height * 0.02)
             make.left.right.bottom.equalToSuperview()
         }
         
         historyButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(view.frame.width * 0.05)
+            make.right.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(view.frame.height * 0.03)
             make.height.width.equalTo(view.frame.width * 0.18)
         }

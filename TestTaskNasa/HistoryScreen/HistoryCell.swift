@@ -86,13 +86,9 @@ private extension HistoryCell {
         filtersTile.textColor = AccentColors.accentOne.OWColor
         
         roverNameLabel.font = .systemFont(ofSize: 16)
-        roverNameLabel.text = "Rover:  Curiosity"
-        
+
         cameraNameLabel.font = .systemFont(ofSize: 16)
-        cameraNameLabel.text = "Camera:  Front Hazard Avoidance Camera"
-        
         dateLabel.font = .systemFont(ofSize: 16)
-        dateLabel.text = "Date:  June 6, 2019"
         
         filtersVStack.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(44)

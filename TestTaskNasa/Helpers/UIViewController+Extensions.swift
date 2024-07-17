@@ -10,6 +10,13 @@ extension UIViewController {
         lb.textColor = textColor
         return lb
     }
+    
+    func createHStack(axis: NSLayoutConstraint.Axis) -> UIStackView {
+        let sv = UIStackView()
+        sv.axis = axis
+        sv.distribution = .equalSpacing
+        return sv
+    }
 }
 
 extension MainViewController  {
@@ -105,10 +112,7 @@ extension FilterViewControllerProtocol where Self: UIViewController {
     }
     
     func createHStack(axis: NSLayoutConstraint.Axis) -> UIStackView {
-        let sv = UIStackView()
-        sv.axis = axis
-        sv.distribution = .equalSpacing
-        return sv
+        createHStack(axis: axis)
     }
 }
 

@@ -16,8 +16,6 @@ final class MainViewModel {
         }
     }
     
-
-    
     var onUpdate: (() -> Void)?
     
     public var selectedRover: String?

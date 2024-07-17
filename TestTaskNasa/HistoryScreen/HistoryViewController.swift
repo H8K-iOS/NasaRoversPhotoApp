@@ -66,7 +66,6 @@ private extension HistoryViewController {
     
     func showEmptyHistoryImage() {
         noHistoryImageView.image = #imageLiteral(resourceName: "Empty.png")
-        //noHistoryImageView.tintColor = .gray
         noHistoryImageView.isHidden = false
         noHistoryImageView.snp.makeConstraints { make in
             make.centerX.equalTo(tableView.snp.centerX)
@@ -77,18 +76,18 @@ private extension HistoryViewController {
     }
     
     func setupLayouts() {
-        backButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(68)
-            make.left.equalToSuperview().offset(20)
-        }
-        
         titleLable.snp.makeConstraints { make in
-            make.centerY.equalTo(backButton.snp.centerY)
+            make.top.equalToSuperview().offset(view.frame.height * 0.07)
             make.centerX.equalToSuperview()
         }
         
+        backButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLable.snp.centerY)
+            make.left.equalToSuperview().offset(20)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(135)
+            make.top.equalTo(titleLable.snp.bottom).offset(view.frame.height * 0.02)
             make.left.right.bottom.equalToSuperview()
         }
         
