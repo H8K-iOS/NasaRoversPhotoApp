@@ -97,23 +97,13 @@ private extension HistoryViewController {
 
 //MARK: - Table View Extensions
 extension HistoryViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filter = self.viewModel.history[indexPath.row]
         AlertManager.showAlert(on: self, ofType: .applyFilter(useHandler: {
             self.delegate?.applyFilter(rover: filter.roverName, camera: filter.roverCamera, date: filter.date)
             self.navigationController!.popViewController(animated: true)
         }, deleteHandler: { [weak self] in
-            self?.viewModel.deleteFilter(filter: filter, completion: { [weak self] in
-                guard let self = self else { return }
-                self.tableView.beginUpdates()
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self.tableView.endUpdates()
-                self.checkDataConsist()
-            })
+            self?.viewModel.deleteFilter(at: indexPath.row)
         }))
     }
 }

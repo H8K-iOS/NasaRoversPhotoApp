@@ -24,13 +24,15 @@ final class HistoryViewModel {
         }
     }
     
-    func deleteFilter(filter: FilterModel, completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            
-            if let index = self?.history.firstIndex(of: filter) {
-                self?.dbManager.removeObject(filter: filter)
-                self?.history.remove(at: index)
-                completion()
+    func deleteFilter(at index: Int) {
+        guard index < history.count else { return }
+        
+        let filterToDelete = history[index]
+        dbManager.removeObject(filter: filterToDelete) { [weak self] error in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                self?.fetchFiltersHistory()
             }
         }
     }

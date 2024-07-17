@@ -7,32 +7,66 @@ struct RoverPhotoResponse: Decodable {
 struct Photo: Decodable {
     let id: Int
     let sol: Int
-    let camera: CameraPhoto
-    let img_src: String
-    let earth_date: String
-    let rover: RoverPhoto
+    let camera: Camera
+    let imgSrcPhoto: String
+    let earthDatePhoto: String
+    let rover: Rover
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case sol
+        case camera
+        case imgSrcPhoto = "img_src"
+        case earthDatePhoto = "earth_date"
+        case rover
+    }
 }
 
 struct CameraPhoto: Decodable {
     let id: Int
     let name: String
-    let rover_id: Int
-    let full_name: String
+    let roverId: Int
+    let fullName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case roverId = "rover_id"
+        case fullName = "full_name"
+    }
 }
 
 struct RoverPhoto: Decodable {
     let id: Int
     let name: String
-    let landing_date: String
-    let launch_date: String
+    let landingDate: String
+    let launchDate: String
     let status: String
-    let max_sol: Int
-    let max_date: String
-    let total_photos: Int
+    let maxSol: Int
+    let maxDate: String
+    let totalPhotos: Int
     let cameras: [CameraName]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case landingDate = "landing_date"
+        case launchDate = "launch_date"
+        case status
+        case maxSol = "max_sol"
+        case maxDate = "max_date"
+        case totalPhotos = "total_photos"
+        case cameras
+        
+    }
 }
 
 struct CameraName: Decodable {
     let name: String
-    let full_name: String
+    let fullName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case fullName = "full_name"
+    }
 }

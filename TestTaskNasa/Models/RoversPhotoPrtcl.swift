@@ -21,14 +21,14 @@ extension Photo: RoverPhotoProtocol {
     }
     
     var cameraFullName: String {
-        return camera.full_name
+        return camera.fullName
     }
     
     var earthDate: String {
-        return self.earth_date
+        return self.earthDatePhoto
     }
     
     var imgSrc: String {
-        return self.img_src
+        return self.imgSrcPhoto
     }
 }

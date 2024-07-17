@@ -2,7 +2,7 @@ import RealmSwift
 protocol DBManager {
     func saveFilter(filter: FilterModel)
     func fetchFilters() -> [FilterModel]
-    func removeObject(filter: Object)
+    func removeObject(filter: FilterModel, completion: @escaping (Error?) -> Void)
 }
 
 final class DBManagerImpl: DBManager {
@@ -40,16 +40,20 @@ final class DBManagerImpl: DBManager {
         }
     }
     
-    func removeObject(filter: Object) {
-        guard let realm = mainRealm else { return }
-        do {
-            try realm.write {
-                realm.delete(filter)
+    func removeObject(filter: FilterModel, completion: @escaping (Error?) -> Void) {
+            guard let realm = mainRealm else {
+                completion(NSError(domain: "Realm", code: 0, userInfo: [NSLocalizedDescriptionKey: "Real fail"]))
+                return
             }
-        } catch {
-            print("failed to delete")
+            do {
+                try realm.write {
+                    realm.delete(filter)
+                }
+                completion(nil)
+            } catch {
+                completion(error)
+            }
         }
-    }
 
     
     func fetchFilters() -> [FilterModel] {
