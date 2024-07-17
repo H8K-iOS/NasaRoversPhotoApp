@@ -1,6 +1,6 @@
 import UIKit
 protocol HistoryViewControllerDelegate: AnyObject {
-    func applyFilter(rover: String?, camera: String?, date: String?)
+    func applyFilter(rover: String?, camera: String?, date: Date?)
 }
 
 final class HistoryViewController: UIViewController {
@@ -19,7 +19,7 @@ final class HistoryViewController: UIViewController {
     
     //MARK: Variables
     private lazy var backButton = createBackBarButton(selector: #selector(backButtonTapped))
-    private lazy var titleLable = createLabel(font: 34, text: "History")
+    private lazy var titleLable = createLabel(font: 34, weight: .bold, text: "History")
     
     weak var delegate: HistoryViewControllerDelegate?
     
@@ -104,17 +104,18 @@ extension HistoryViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filter = self.viewModel.history[indexPath.row]
-        AlertManager.showApplyFilterAllert(on: self) {
+        AlertManager.showAlert(on: self, ofType: .applyFilter(useHandler: {
             self.delegate?.applyFilter(rover: filter.roverName, camera: filter.roverCamera, date: filter.date)
             self.navigationController!.popViewController(animated: true)
-        } completionDelete: { [weak self] in
+        }, deleteHandler: { [weak self] in
             self?.viewModel.deleteFilter(filter: filter, completion: { [weak self] in
-                self?.tableView.beginUpdates()
-                self?.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self?.tableView.endUpdates()
+                guard let self = self else { return }
+                self.tableView.beginUpdates()
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.tableView.endUpdates()
+                self.checkDataConsist()
             })
-            
-        }
+        }))
     }
 }
 

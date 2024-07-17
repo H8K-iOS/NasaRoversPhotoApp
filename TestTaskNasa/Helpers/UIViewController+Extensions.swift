@@ -3,14 +3,13 @@ import SnapKit
 
 
 extension UIViewController {
-    func createLabel(font: CGFloat, text: String) -> UILabel {
+    func createLabel(font: CGFloat, weight: UIFont.Weight, text: String, textColor: UIColor = .black) -> UILabel {
         let lb = UILabel()
         lb.text = text
-        lb.font = .systemFont(ofSize: font, weight: .bold)
-        lb.textColor = .black
+        lb.font = .systemFont(ofSize: font, weight: weight)
+        lb.textColor = textColor
         return lb
     }
-    
 }
 
 extension MainViewController  {
@@ -28,10 +27,10 @@ extension MainViewController  {
         return btn
     }
     
-    func createFilterButton(icon: UIImage, selector: Selector) -> UIButton {
+    func createFilterButton(title: String, icon: UIImage, selector: Selector) -> UIButton {
         let btn = UIButton()
         btn.setImage(icon, for: .normal)
-        btn.setTitle("All", for: .normal)
+        btn.setTitle(title, for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         btn.backgroundColor = BackgroundColor.backgroundOne.OWcolor
@@ -102,11 +101,7 @@ extension FilterViewControllerProtocol where Self: UIViewController {
     }
     
     func createTitle(text: String) -> UILabel {
-        let lb = UILabel()
-        lb.text = text
-        lb.textColor = .black
-        lb.font = .systemFont(ofSize: 22)
-        return lb
+        createLabel(font: 22, weight: .bold, text: text)
     }
     
     func createHStack(axis: NSLayoutConstraint.Axis) -> UIStackView {

@@ -17,8 +17,9 @@
 		8C2EC51D2C42B349005784C8 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC51C2C42B349005784C8 /* DatePickerViewController.swift */; };
 		8C2EC51F2C42E743005784C8 /* RoverPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC51E2C42E743005784C8 /* RoverPhoto.swift */; };
 		8C2EC5242C42F271005784C8 /* RoversPhotoPrtcl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC5232C42F271005784C8 /* RoversPhotoPrtcl.swift */; };
-		8C2EC52A2C430FDD005784C8 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC5292C430FDD005784C8 /* loader.json */; };
 		8C2EC52D2C43166E005784C8 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC52C2C43166E005784C8 /* AlertManager.swift */; };
+		8C4D8CA02C47BCD400F1B6F7 /* DateFormaterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D8C9F2C47BCD400F1B6F7 /* DateFormaterManager.swift */; };
+		8C4D8CA22C47EC5800F1B6F7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C4D8CA12C47EC5800F1B6F7 /* loader.json */; };
 		8CC4AD3A2C402A9D00538CEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD392C402A9D00538CEC /* AppDelegate.swift */; };
 		8CC4AD3C2C402A9D00538CEC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD3B2C402A9D00538CEC /* SceneDelegate.swift */; };
 		8CC4AD3E2C402A9D00538CEC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC4AD3D2C402A9D00538CEC /* MainViewController.swift */; };
@@ -53,8 +54,9 @@
 		8C2EC51C2C42B349005784C8 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		8C2EC51E2C42E743005784C8 /* RoverPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverPhoto.swift; sourceTree = "<group>"; };
 		8C2EC5232C42F271005784C8 /* RoversPhotoPrtcl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoversPhotoPrtcl.swift; sourceTree = "<group>"; };
-		8C2EC5292C430FDD005784C8 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = loader.json; path = ../../../loader.json; sourceTree = "<group>"; };
 		8C2EC52C2C43166E005784C8 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		8C4D8C9F2C47BCD400F1B6F7 /* DateFormaterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormaterManager.swift; sourceTree = "<group>"; };
+		8C4D8CA12C47EC5800F1B6F7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		8CC4AD362C402A9D00538CEC /* TestTaskNasa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskNasa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC4AD392C402A9D00538CEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CC4AD3B2C402A9D00538CEC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				8C2EC52C2C43166E005784C8 /* AlertManager.swift */,
 				8CF8448E2C440EF800A59A11 /* DBManager.swift */,
+				8C4D8C9F2C47BCD400F1B6F7 /* DateFormaterManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -173,7 +176,7 @@
 		8CC4AD4E2C402B0E00538CEC /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC5292C430FDD005784C8 /* loader.json */,
+				8C4D8CA12C47EC5800F1B6F7 /* loader.json */,
 				8CC4AD422C402AA000538CEC /* Assets.xcassets */,
 				8CC4AD442C402AA000538CEC /* LaunchScreen.storyboard */,
 				8CC4AD472C402AA000538CEC /* Info.plist */,
@@ -303,7 +306,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2EC52A2C430FDD005784C8 /* loader.json in Resources */,
+				8C4D8CA22C47EC5800F1B6F7 /* loader.json in Resources */,
 				8CC4AD432C402AA000538CEC /* Assets.xcassets in Resources */,
 				8CC4AD462C402AA000538CEC /* Base in Resources */,
 			);
@@ -379,6 +382,7 @@
 				8CC4AD532C4030C800538CEC /* UIColor+Extensions.swift in Sources */,
 				8CC4AD5E2C403EFA00538CEC /* UIViewController+Extensions.swift in Sources */,
 				8CC4AD622C40994700538CEC /* APIService.swift in Sources */,
+				8C4D8CA02C47BCD400F1B6F7 /* DateFormaterManager.swift in Sources */,
 				8C2EC5132C428137005784C8 /* Other+Extensions.swift in Sources */,
 				8C2EC51B2C42ADFB005784C8 /* UIButton+Extensions.swift in Sources */,
 				8CC4AD3A2C402A9D00538CEC /* AppDelegate.swift in Sources */,

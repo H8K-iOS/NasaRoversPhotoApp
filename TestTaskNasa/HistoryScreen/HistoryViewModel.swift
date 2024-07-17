@@ -2,7 +2,7 @@ import Foundation
 
 final class HistoryViewModel {
     private let dbManager = DBManagerImpl()
-    private(set) var history: [FilterModel] = [] {
+    var history: [FilterModel] = [] {
         didSet {
             onUpdate?()
         }
@@ -28,8 +28,8 @@ final class HistoryViewModel {
         DispatchQueue.main.async { [weak self] in
             
             if let index = self?.history.firstIndex(of: filter) {
-                self?.history.remove(at: index)
                 self?.dbManager.removeObject(filter: filter)
+                self?.history.remove(at: index)
                 completion()
             }
         }

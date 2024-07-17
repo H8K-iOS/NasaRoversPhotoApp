@@ -4,5 +4,5 @@ import RealmSwift
 class FilterModel: Object {
     dynamic var roverName: String? = nil
     dynamic var roverCamera: String? = nil
-    dynamic var date: String? = nil
+    dynamic var date: Date? = nil
 }

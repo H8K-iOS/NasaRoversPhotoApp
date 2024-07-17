@@ -7,6 +7,4 @@ final class DetailViewModel {
     init(_ latestPhoto: RoverPhotoProtocol) {
         self.latestPhoto = latestPhoto
     }
-    
-    
 }

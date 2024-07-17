@@ -19,16 +19,6 @@ final class CardCell: UITableViewCell {
         vs.spacing = 0
         return vs
     }()
-    private let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "MMMM d, yyyy"
-        return df
-    }()
-    private let inputDateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd"
-        return df
-    }()
     
     // MARK: - Variables
     private(set) var rovers: RoverPhotoProtocol!
@@ -76,12 +66,8 @@ final class CardCell: UITableViewCell {
 //MARK: - Extensions
 private extension CardCell {
     func setData(date: RoverPhotoProtocol) {
-        if let date = inputDateFormatter.date(from: date.earthDate) {
-            let formattedDate = dateFormatter.string(from: date)
-            dateLabel.attributedText = String.labelColor(title: "Date: ", value: formattedDate)
-        } else {
-            dateLabel.attributedText = String.labelColor(title: "Date: ", value: rovers.earthDate)
-        }
+        let date = DateFormatterManager.shared.formatDateString(date.earthDate)
+        dateLabel.attributedText = String.labelColor(title: "Date: ", value: date)
     }
     
     func setContainer() {

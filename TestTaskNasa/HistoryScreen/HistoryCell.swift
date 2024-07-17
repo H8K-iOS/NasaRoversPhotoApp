@@ -40,9 +40,14 @@ final class HistoryCell: UITableViewCell {
     //MARK: Methods
     public func configure(with filter: FilterModel) {
         self.filter = filter
-        self.roverNameLabel.attributedText = String.labelColor(title: "Rover: ", value: filter.roverName ?? "-")
-        self.cameraNameLabel.attributedText = String.labelColor(title: "Camera: ", value: filter.roverCamera ?? "-")
-        self.dateLabel.attributedText = String.labelColor(title: "Date: ", value: filter.date ?? "-")
+        self.roverNameLabel.attributedText = String.labelColor(title: "Rover: ", value: filter.roverName ?? "Curiosity")
+        self.cameraNameLabel.attributedText = String.labelColor(title: "Camera: ", value: filter.roverCamera ?? "All")
+        if let date = filter.date {
+            self.dateLabel.attributedText = String.labelColor(title: "Date: ", value: DateFormatterManager.shared.formattedDateString(from: date))
+        } else {
+            self.dateLabel.attributedText = String.labelColor(title: "Date: ", value: "-")
+        }
+        
     }
     
 }
